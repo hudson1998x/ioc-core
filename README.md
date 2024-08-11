@@ -4,6 +4,52 @@ Inversion of Control (IoC) is a design principle in software engineering that ai
 
 Implementing IoC leads to more testable and maintainable code, as it removes direct dependencies between components, making the system more adaptable to changes. By inverting the control flow, developers can focus on writing business logic while relying on the IoC container to handle the wiring of dependencies, lifecycle management, and other cross-cutting concerns. This principle is foundational in many modern frameworks and libraries, which leverage IoC to simplify the development process and promote best practices.
 
+#### Getting started, index.php and cli.php
+
+##### `index.php`
+```php
+<?php
+
+    require_once('vendor/autoload.php');
+    
+    use Hudsxn\IocCore\Application;
+    //                     fileDir, runType, beforeRequest
+    $app = new Application("src", "web", function() {
+        
+        /**
+         * @var \Hudsxn\IocCore\AppRouter
+         */
+        $router = $this->getApplicationRouter();
+
+        $router->setNoRouteAction(function(string $method, string $path) {
+            // do this when not found, you can use this to fallback on frontend apps.
+        });
+
+    }); 
+```
+##### `cli.php`
+```php
+<?php
+
+    require_once('vendor/autoload.php');
+    
+    use Hudsxn\IocCore\Application;
+    //                     fileDir, runType, beforeRun
+    $app = new Application("src", "cli", function() {
+        
+    }, $argv); 
+```
+##### `.env` or the environment variables
+```ini
+mysql_host="localhost"
+mysql_user="root"
+mysql_charset="utf8"
+mysql_password="password"
+mysql_db="my_db"
+```
+
+These are all required fields if you wish to use MySQL with this framework, this is done using a PDO adapter with security measures in place.
+
 ### The PHP framework built for React, Vue and Svelte
 
 This framework was designed with modularity, ease of use, readability and maintainability in mind. 
