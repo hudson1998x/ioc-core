@@ -35,7 +35,7 @@
             return [
                 'host' => $configuration->get('mysql_host'),
                 'username' => $configuration->get('mysql_user'),
-                'charset' => $configuration->get('mysql_charset') ?? 'utf-8', 
+                'charset' => $configuration->get('mysql_charset') ?? 'utf8', 
                 'password' => $configuration->get('mysql_password'),
                 'dbname' => $configuration->get('mysql_db')
             ];

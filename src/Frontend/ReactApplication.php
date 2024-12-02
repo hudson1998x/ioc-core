@@ -39,8 +39,7 @@
                     exit();
                 }       
             }
-
-            if ( str_starts_with( $path, $this->baseUrl )) {
+            if ( (str_starts_with( $path, $this->baseUrl ) && $this->baseUrl != '/') || $this->baseUrl == '/' && $path == '/') {
                 $this->servePage();
                 exit();
             }
@@ -50,6 +49,9 @@
         {
             exit('
                 <html>
+                    <head>
+                        <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+                    </head>
                     <body>
                         <div id="app"></div>
                         <script src="/' . $this->jsFile . '"></script>
