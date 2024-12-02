@@ -5,6 +5,7 @@
     use Exception;
     use Hudsxn\IocCore\Attribute\Controller;
     use Hudsxn\IocCore\Attribute\Db\DefaultValue;
+    use Hudsxn\IocCore\Attribute\Db\LongText;
     use Hudsxn\IocCore\Attribute\Db\Unique;
     use Hudsxn\IocCore\Attribute\Entity;
     use Hudsxn\IocCore\Attribute\Security\EntityPolicy;
@@ -417,6 +418,16 @@
                 foreach($entityDef->getProperties() as $property) {
 
                     $type = strval($property->getType());
+
+                    if ($type === 'string')
+                    {
+                        $text = $property->getAttributes(LongText::class);
+
+                        if ($text) {
+                            $type = 'TEXT';
+                        }
+                    }
+
                     $nullable = stristr($type, '?');
 
                     if ($nullable) {
