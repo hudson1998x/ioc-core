@@ -41,6 +41,14 @@
             ];
         }
 
+        public function getTotal(string $table): int
+        {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) AS total FROM {$table}");
+            $stmt->execute();
+
+            return $stmt->fetchAll( PDO::FETCH_ASSOC )[0]['total'];
+        }
+
         public function where( string $table, array | string $conditions, int $start = 0, int $limit = 20, string $order = 'ASC', string $orderBy = '1' ): array
         {
             $sql = "SELECT * FROM {$table} ";

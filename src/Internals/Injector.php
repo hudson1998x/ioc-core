@@ -464,6 +464,13 @@
                     return null;
                 }
             };
+
+            $service->db = $db;
+
+            $service->getTotal = function() use(&$db, $entityTable): int {
+                return $db->getTotal($entityTable);
+            };
+
             $service->list = function(array $where = [], int $start = 0, int $limit = 20, $order = 'ASC', $orderBy = '1') use ($db, $entityTable, $entityDef, $entityClassName, $deserializer, $service): array {
 
                 $service->checkPolicy('read', null);
